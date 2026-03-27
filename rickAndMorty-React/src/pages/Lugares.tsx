@@ -1,6 +1,4 @@
-
 import { useState, useEffect } from "react";
-
 
 interface Lugar {
     id: number;
@@ -10,22 +8,24 @@ interface Lugar {
     residents: string[];
 }
 
-interface LugarApiResponse {
-    results: Lugar[];
+interface ApiInfo {
+    count: number;
+    pages: number;
 }
 
+interface LugarApiResponse {
+    results: Lugar[];
+    info: ApiInfo;
+}
 
 const Lugares = () => {
     const [lugar, setLugar] = useState<Lugar[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<Error | null>(null)
     const [page, setPage] = useState<number>(1)
-
+    const [info, setInfo] = useState<ApiInfo>({ count: 0, pages: 0 })
 
     useEffect(() => {
-        // const url = `https://rickandmortyapi.com/api/location?page=${page}`
-
-
         const controller = new AbortController()
 
         const traerLugares = async (): Promise<void> => {
@@ -34,19 +34,18 @@ const Lugares = () => {
             try {
                 const apiBase = import.meta.env.VITE_API_URL;
                 const url = `${apiBase}/location?page=${page}`;
-                const option = controller.signal
 
-                const response = await fetch(url, { signal: option });
+                const response = await fetch(url, { signal: controller.signal });
                 if (!response.ok) {
                     throw new Error(`error ${response.status} - ${response.statusText}`)
                 }
                 const data = (await response.json()) as LugarApiResponse;
                 setLugar(data.results)
+                setInfo(data.info)
             } catch (erro) {
                 if (erro instanceof Error && erro.name === 'AbortError') {
                     return;
                 }
-                console.error('Error al cargar lugares:', erro)
                 setError(erro instanceof Error ? erro : new Error("Error desconocido"))
             } finally {
                 setLoading(false)
@@ -74,16 +73,17 @@ const Lugares = () => {
         )
     }
 
-    const prev = () => setPage(page > 1 ? page - 1 : 1);
-    const next = () => setPage(page + 1);
+    const prev = () => setPage(p => Math.max(1, p - 1));
+    const next = () => setPage(p => p + 1);
+
     return (
         <section className="Location">
             <h2 className="Location-title">Lugares</h2>
 
             <div className="Pages">
                 <button onClick={prev} disabled={page === 1}> Anterior</button>
-                {page}
-                <button onClick={next}>siguiente</button>
+                {page} / {info.pages || "?"}
+                <button onClick={next} disabled={page >= (info.pages || 1)}>siguiente</button>
             </div>
             {error && (
                 <div>
@@ -93,9 +93,6 @@ const Lugares = () => {
             )}
 
             {loading ? <div>Cargando Ubicaciones...</div> : <Ubicaciones />}
-
-
-
         </section>
     );
 }

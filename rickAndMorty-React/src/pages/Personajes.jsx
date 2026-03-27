@@ -7,8 +7,6 @@ const Personajes = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
     const [info, setInfo] = useState({})
-    // const [filtro, setFiltro] = useState("all")
-    // otra forma de hacerlo
     const [filtro, setFiltro] = useState({
         status: "",
         species: "",
@@ -17,73 +15,46 @@ const Personajes = () => {
         gender: ""
     })
 
-
     useEffect(() => {
+        const controller = new AbortController()
 
         const traerPj = async () => {
             try {
                 setLoading(true)
                 setError(null)
 
-                // VERSION 1 crear string a partir de un objeto
-                // const crearSearchParams=(filtro)=>{
-                //     const listaAtributos = Object.keys(filtro)
-                //     let string="";
-
-                //     listaAtributos.map((key)=>{
-                //         if(filtro[key] !== ""){
-                //             string+=`&${key}=${filtro[key]}`
-                //         }
-                //     });
-                //     return string;
-                // }
-                // const filtrosUrl= crearSearchParams();
-                // console.log(filtrosUrl)
-                //realizamos la pticion con fetch
-                // const response = await fetch(`https://rickandmortyapi.com/api/character/?page=${page}&${filtrosUrl}`)
-
-
-                // CREAR OBJETO CON URLsearchParams
-                //VERSION 2
                 const params = new URLSearchParams();
                 params.append("page", page)
 
-                //añadir solo los filtros que tengan valor
                 Object.entries(filtro).forEach(([key, value]) => {
                     if (value !== "") {
                         params.append(key, value);
                     }
                 });
 
-                // const response = await fetch(`https://rickandmortyapi.com/api/character/?page=${page}${filtro !== "all" ? `&species=${filtro}` : ""}`);
-                // const response = await fetch(`https://rickandmortyapi.com/api/character/?page=${page}&species=${filtro.species}&status=${filtro.status}&gender=${filtro.gender}`);
-                // const response = await fetch(`https://rickandmortyapi.com/api/character?${params.toString()}`)
-                const apiBase = import.meta.env.VITE_API_URL; // Ejemplo: "http://localhost:5000/api"
-                const response = await fetch(`${apiBase}/character?${params.toString()}`);
-
-
+                const apiBase = import.meta.env.VITE_API_URL;
+                const response = await fetch(`${apiBase}/character?${params.toString()}`, {
+                    signal: controller.signal
+                });
 
                 if (!response.ok) {
                     throw new Error(`error ${response.status} - ${response.statusText}`)
                 }
                 const data = await response.json();
 
-                //guardar personajes
                 setPersonajes(data.results)
-
-                //guardar info de la pagina
                 setInfo(data.info)
-
-                // console.log(data.results)
-                // console.log(data.info)
             } catch (error) {
-                console.log(`No se pudo cargar el archivo, error: ${error}`)
+                if (error.name === 'AbortError') return;
+                setError(error.message)
+            } finally {
+                setLoading(false)
             }
-            setLoading(false)
         }
 
         traerPj()
 
+        return () => controller.abort()
     }, [page, filtro])
 
 
@@ -92,15 +63,12 @@ const Personajes = () => {
     }
 
     const prev = () => {
-        const ant = page <= 1 ? null : page - 1;
-        setPage(ant)
+        setPage(p => Math.max(1, p - 1));
     };
 
     const cards = personajes.map(p => (
         <CardPj key={p.id} {...p} />
     ))
-
-    console.log(info.count)
 
     return (
         <main className="Personajes">
@@ -117,7 +85,7 @@ const Personajes = () => {
 
                 <label className="Search-label">Filtrar por especie:
                     <select
-                        id="filtro"
+                        id="filtro-species"
                         onChange={(e) => {
                             setFiltro({ ...filtro, species: e.target.value });
                             setPage(1);
@@ -133,7 +101,7 @@ const Personajes = () => {
 
                 <label className="Search-label">Filtrar por estado:
                     <select
-                        id="filtro"
+                        id="filtro-status"
                         onChange={(e) => {
                             setFiltro({ ...filtro, status: e.target.value });
                             setPage(1);
@@ -149,7 +117,7 @@ const Personajes = () => {
 
                 <label className="Search-label">Filtrar por Genero:
                     <select
-                        id="filtro"
+                        id="filtro-gender"
                         onChange={(e) => {
                             setFiltro({ ...filtro, gender: e.target.value });
                             setPage(1);
@@ -169,8 +137,8 @@ const Personajes = () => {
             <div className="Pages">
 
                 <button onClick={prev} disabled={page === 1}> Anterior</button>
-                {page}
-                <button onClick={next}>siguiente</button>
+                {page} / {info.pages || "?"}
+                <button onClick={next} disabled={page >= (info.pages || 1)}>siguiente</button>
             </div>
 
             <section className="Card">
