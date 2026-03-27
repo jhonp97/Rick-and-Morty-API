@@ -1,23 +1,22 @@
-// routes/rickandmortyRoutes.js
 import express from 'express';
 import { logger } from '../middlewares/logger.middleware.js'
-import { getRickAndMortyPersonajes } from '../controllers/rickandmortyController.js';
+import { getRickAndMortyPersonajes, getRickAndMortyPersonajeById } from '../controllers/rickandmortyController.js';
 import { rickandmortyLugares } from '../controllers/rickandmortyLugares.js';
 import { getRickAndMortyEpisodios } from '../controllers/rickandmortyEpisodios.js';
 
 const router = express.Router();
 
-// Aplica el middleware de logger a todas las rutas 
+// Logger en todas las rutas
 router.use(logger);
 
-// Para personajes la  ruta es: /api/rickandmorty/character
+// Personajes
 router.get('/character', getRickAndMortyPersonajes);
+router.get('/character/:id', getRickAndMortyPersonajeById);
 
-// Para ubicaciones la ruta es: /api/rickandmorty/location
+// Lugares
 router.get('/location', rickandmortyLugares);
 
-
-// Ruta oata los episodios
+// Episodios
 router.get('/episode', getRickAndMortyEpisodios);
 
 export default router;
