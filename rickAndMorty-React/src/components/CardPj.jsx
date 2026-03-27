@@ -1,35 +1,34 @@
-const CardPj = ({ name, image, species, status, gender }) => {
-const styles={
- border: "solid 2px gray", 
- borderRadius: "8px",
- boxShadow: "0 0 15px gray"
-}
+import { Link } from "react-router-dom";
+
+const CardPj = ({ id, name, image, species, status, gender }) => {
+    const genderEmoji = {
+        Female: "♀️",
+        Male: "♂️",
+        unknown: "❓",
+        "n/a": "❌",
+    };
 
     return (
-
-
-        <div className="Card-personaje" style={styles}>
+        <Link to={`/personaje/${id}`} className="Card-personaje">
             <h2>{name}</h2>
             <img src={image} alt={name} loading="lazy" />
 
             <p>
-                <strong>Género:</strong>
-                <strong >
-                    {gender === "Female" ? "♀️" : gender === "Male" ? "♂️" : gender === "unknown"? "❓❓❓": " ❌❌❌"}
-                </strong>
+                <strong>Género:</strong> {genderEmoji[gender] || "🤷"}
             </p>
 
             <p>
-                <strong>Especie:</strong> <strong>{species === "Alien" ? "👽": species}</strong>
+                <strong>Especie:</strong> {species === "Alien" ? "👽" : species}
             </p>
 
             <p>
-                <strong>Estado:</strong> <strong style={status === "Dead" ? { color: "red" } : {}}>{status}</strong>
+                <strong>Estado:</strong>{" "}
+                <span style={status === "Dead" ? { color: "red" } : {}}>
+                    {status}
+                </span>
             </p>
-        </div>
-
-
+        </Link>
     );
-}
+};
 
 export default CardPj;

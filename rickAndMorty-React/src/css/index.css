@@ -1,25 +1,55 @@
+/* ========== PALETA RICK & MORTY ========== */
+/* Dark mode: mundo C-137 (default) */
+/* Light mode: dimension alternativa */
+
+:root {
+  /* Colores por defecto (dark) */
+  --bg-primary: linear-gradient(to top, rgb(8, 18, 8), rgb(6, 27, 14));
+  --bg-secondary: #1a1a1a;
+  --bg-card: transparent;
+  --text-primary: rgba(255, 255, 255, 0.87);
+  --text-secondary: aliceblue;
+  --accent: #97ce4c;          /* Portal green */
+  --accent-hover: #b8d44e;
+  --border-color: gray;
+  --shadow-color: gray;
+  --search-shadow: white;
+  --input-bg: white;
+  --input-text: black;
+}
+
+/* Light mode: dimension alternativa */
+[data-theme="light"] {
+  --bg-primary: linear-gradient(to top, #e8f5e9, #f1f8e9);
+  --bg-secondary: #f5f5f5;
+  --bg-card: #ffffff;
+  --text-primary: #1a3a1a;
+  --text-secondary: #2d5a2d;
+  --accent: #2e7d32;
+  --accent-hover: #1b5e20;
+  --border-color: #c8e6c9;
+  --shadow-color: rgba(46, 125, 50, 0.3);
+  --search-shadow: rgba(46, 125, 50, 0.2);
+  --input-bg: #ffffff;
+  --input-text: #1a3a1a;
+}
+
+/* ========== RESET + BASE ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--text-secondary);
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background: linear-gradient(to top, rgb(8, 18, 8), rgb(6, 27, 14));
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
@@ -28,6 +58,17 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+a {
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--accent-hover);
 }
 
 h1 {
@@ -42,27 +83,12 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #454545;
-  }
+button:hover {
+  border-color: var(--accent);
 }

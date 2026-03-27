@@ -1,17 +1,11 @@
-const BASE_URL = process.env.API_BASE_URL;
+import { fetchFromApi } from '../services/rickAndMortyService.js';
 
 export const rickandmortyLugares = async (req, res, next) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
-    const apiURL = `${BASE_URL}/location?page=${page}`;
+    const params = new URLSearchParams({ page });
 
-    const response = await fetch(apiURL);
-
-    if (!response.ok) {
-      throw new Error(`Error ${response.status} - ${response.statusText}`);
-    }
-
-    const data = await response.json();
+    const data = await fetchFromApi('location', params);
     res.status(200).json(data);
   } catch (err) {
     next(err);

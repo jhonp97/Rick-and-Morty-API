@@ -1,25 +1,16 @@
-import Personajes from "@/pages/Personajes";
-import Episodios from '@/pages/Episodios.tsx'
-import Lugares from '@/pages/Lugares'
-import { useState } from "react";
+import { NavLink } from 'react-router-dom'
+import ThemeToggle from '@/components/ThemeToggle'
 
 const Nav = () => {
-    const [page, setPage] = useState("characters")
     return (
-    <>
         <header className="Header">
             <nav className="Nav">
-                <button onClick={() => setPage("characters")}>Personajes</button>
-                <button onClick={() => setPage("locations")}>Lugares</button>
-                <button onClick={() => setPage("episodes")}>Episodios</button>
+                <NavLink to="/personajes">Personajes</NavLink>
+                <NavLink to="/lugares">Lugares</NavLink>
+                <NavLink to="/episodios">Episodios</NavLink>
+                <ThemeToggle />
             </nav>
-
         </header>
-            {page == "characters" && <Personajes />}
-            {page == "locations" && <Lugares />}
-            {page == "episodes" && <Episodios />}
-    </>
-
     );
 }
 

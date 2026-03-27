@@ -1,12 +1,6 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  color: aliceblue;
-}
-
+/* ========== LAYOUT PRINCIPAL ========== */
 #root {
-  width: 100%;;
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -17,7 +11,8 @@
   gap: 30px;
 }
 
-.Header{
+/* ========== HEADER Y NAV ========== */
+.Header {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -25,16 +20,47 @@
   align-items: center;
 }
 
-.Nav{
-  
+.Nav {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   gap: 1rem;
-
 }
 
+.Nav a {
+  padding: 0.6em 1.2em;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background-color: var(--bg-secondary);
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.25s, background-color 0.25s;
+  color: var(--text-secondary);
+}
+
+.Nav a:hover {
+  border-color: var(--accent);
+}
+
+.Nav a.active {
+  border-color: var(--accent);
+  background-color: color-mix(in srgb, var(--accent) 15%, var(--bg-secondary));
+}
+
+/* Theme toggle */
+.ThemeToggle {
+  font-size: 1.4rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  padding: 0.4em 0.6em;
+}
+
+.ThemeToggle:hover {
+  border-color: var(--accent);
+}
+
+/* ========== PÁGINAS ========== */
 .Personajes,
 .Location,
 .Episodios {
@@ -44,37 +70,72 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem
+  gap: 1rem;
 }
 
 .Personaje-title,
 .Location-title {
   font-size: 3rem;
   font-family: monospace;
+  color: var(--text-primary);
 }
-.Card{
+
+/* ========== CARDS ========== */
+.Card {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 3rem;
-
 }
+
+.Card-location,
+.Card-episodes {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: solid 2px var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 0 15px var(--shadow-color);
+  background: var(--bg-card);
+}
+
+/* Card de personaje — es un Link */
+.Card-personaje {
+  border: solid 2px var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 0 15px var(--shadow-color);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.Card-personaje:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 25px var(--accent);
+  border-color: var(--accent);
+}
+
+/* ========== SEARCH / FILTROS ========== */
 .Search {
-  color: black;
-  box-shadow: 0px 0px 15px white;
-  padding: 18PX;
+  color: var(--input-text);
+  box-shadow: 0px 0px 15px var(--search-shadow);
+  padding: 18px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  border: solid 2px gray;
+  border: solid 2px var(--border-color);
   border-radius: 8px;
+  background: var(--bg-card);
 }
 
 .Search-label {
-  color: rgb(255, 255, 255);
+  color: var(--text-secondary);
   height: auto;
   display: flex;
   justify-content: center;
@@ -82,14 +143,25 @@
   gap: 10px;
   padding: 5px;
   font-size: 1.3rem;
-
-  & select {
-    color: rgb(0, 0, 0);
-    font-size: 1.3rem;
-    cursor: pointer;
-  }
 }
 
+.Search-label select {
+  color: var(--input-text);
+  background: var(--input-bg);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.Search-label input {
+  background: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--border-color);
+  padding: 0.3em 0.5em;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* ========== PAGINACIÓN ========== */
 .Pages {
   padding: 10px;
   display: flex;
@@ -100,24 +172,78 @@
   font-size: 1rem;
 }
 
-.Card-location,
-.Card-episodes {
-  padding: 10px 0 10px 0;
+/* ========== DETALLE DE PERSONAJE ========== */
+.Detail {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.Detail-back {
+  align-self: flex-start;
+  font-size: 1rem;
+}
+
+.Detail-card {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  border: solid 2px var(--accent);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 30%, transparent);
+  background: var(--bg-card);
+}
+
+.Detail-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.Detail-info {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  border: solid 2px gray;
-  border-radius: 8px;
-  box-shadow: 0 0 15px gray;
+  text-align: left;
 }
 
-button{
-  color: rgb(255, 255, 255);
-}
-a{
-  color: rgb(255, 255, 255);
+.Detail-info h1 {
+  font-size: 2rem;
+  font-family: monospace;
+  color: var(--text-primary);
 }
 
+.Detail-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.Detail-badge {
+  padding: 0.3em 0.8em;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.Detail-section {
+  border-top: 1px solid var(--border-color);
+  padding-top: 0.5rem;
+}
+
+.Detail-section h3 {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-bottom: 0.2rem;
+}
+
+/* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
   .Header {
     flex-direction: column;
@@ -143,5 +269,16 @@ a{
   .Card-personaje {
     width: 100%;
     max-width: 300px;
+  }
+
+  .Detail-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .Detail-img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
   }
 }
