@@ -4,6 +4,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import Personajes from '@/pages/Personajes'
 import PersonajeDetail from '@/pages/PersonajeDetail'
+const Home = React.lazy(() => import('@/pages/Home'))
 const Episodios = React.lazy(() => import('@/pages/Episodios.tsx'))
 const EpisodioDetail = React.lazy(() => import('@/pages/EpisodioDetail'))
 const Lugares = React.lazy(() => import('@/pages/Lugares'))
@@ -18,7 +19,7 @@ function App() {
       <Nav />
       <React.Suspense fallback={<p style={{ textAlign: 'center', padding: '2rem' }}>Cargando...</p>}>
         <Routes>
-          <Route path="/" element={<Navigate to="/personajes" replace />} />
+          <Route path="/" element={<Home />} />
           <Route path="/personajes" element={<Personajes />} />
           <Route path="/personaje/:id" element={<PersonajeDetail />} />
           <Route path="/episodios" element={<Episodios />} />
