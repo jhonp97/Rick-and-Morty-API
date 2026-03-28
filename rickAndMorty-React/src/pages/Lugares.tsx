@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useApi } from "@/hooks/useApi";
 
 interface Lugar {
@@ -47,7 +48,7 @@ const Lugares = () => {
           ))
         ) : (
           lugares.map((item: Lugar) => (
-            <article className="Card-location" key={item.id}>
+            <Link to={`/lugar/${item.id}`} className="Card-location" key={item.id}>
               <h2>{item.name}</h2>
               <img
                 src="https://i.ytimg.com/vi/QbNbCmoSW50/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBsfojVHQdcJSxAx3Cre7_ZoTY77A"
@@ -57,7 +58,7 @@ const Lugares = () => {
               <p><strong>{item.type}</strong></p>
               <p><strong>{item.dimension}</strong></p>
               <p><strong>{item.residents.length} habitantes</strong></p>
-            </article>
+            </Link>
           ))
         )}
       </div>
