@@ -46,7 +46,7 @@ const Episodios = () => {
           ))
         ) : (
           episodios.map((item: Episode) => (
-            <Link to={`/episodio/${item.id}`} className="Card-episodes" key={item.id}>
+            <div  className="Card-episodes" key={item.id}>
               <h2>{item.name}</h2>
               <img
                 src="https://i0.wp.com/tomatazos.buscafs.com/2025/05/Rick-y-Morty-T8-Poster-2-1-scaled.jpeg?fit=2046,2560&quality=75&strip=all"
@@ -55,7 +55,7 @@ const Episodios = () => {
               />
               <p><strong>{item.air_date}</strong></p>
               <p><strong>{item.episode}</strong></p>
-            </Link>
+            </div>
           ))
         )}
       </div>
