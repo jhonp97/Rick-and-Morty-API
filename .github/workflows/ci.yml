@@ -67,3 +67,22 @@ jobs:
             echo "❌ Build falló - directorio dist no existe"
             exit 1
           fi
+
+      - name: Security audit - Frontend
+        run: npm audit --audit-level=high
+        working-directory: rickAndMorty-React
+        continue-on-error: true
+
+      - name: Security audit - Backend
+        run: npm audit --audit-level=high
+        working-directory: backend-rickandmorty
+        continue-on-error: true
+
+      - name: Resumen de seguridad
+        run: |
+          echo "🔒 Auditoría de seguridad completada"
+          echo "Frontend:"
+          cd rickAndMorty-React && npm audit --audit-level=high 2>&1 | tail -5 || true
+          echo ""
+          echo "Backend:"
+          cd ../backend-rickandmorty && npm audit --audit-level=high 2>&1 | tail -5 || true
