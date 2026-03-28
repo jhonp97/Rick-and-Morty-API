@@ -1,4 +1,21 @@
 /* ========== LAYOUT PRINCIPAL ========== */
+
+/* ========== LOGO ========== */
+.Header-logo {
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent) !important;
+  text-decoration: none !important;
+  letter-spacing: 1px;
+  transition: text-shadow 0.2s;
+}
+
+.Header-logo:hover {
+  text-shadow: 0 0 15px color-mix(in srgb, var(--accent) 50%, transparent);
+  border-color: transparent !important;
+}
+
 #root {
   width: 100%;
   min-height: 100vh;
