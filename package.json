@@ -12,6 +12,9 @@
     "commitlint:check": "npx commitlint --from HEAD~1 --to HEAD --verbose",
     "lint:frontend": "npm run lint --prefix rickAndMorty-React",
     "lint:backend": "echo 'TODO: configure backend lint'",
-    "lint": "npm run lint:frontend && npm run lint:backend"
+    "lint": "npm run lint:frontend && npm run lint:backend",
+    "test:frontend": "npm test --prefix rickAndMorty-React",
+    "test:backend": "npm test --prefix backend-rickandmorty",
+    "test": "npm run test:frontend && npm run test:backend"
   }
 }

@@ -1,1 +1,2 @@
-npm run lint --prefix rickAndMorty-React
+npm run lint:frontend
+npm run test:backend
