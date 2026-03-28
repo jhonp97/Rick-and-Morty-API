@@ -1,4 +1,5 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import Personajes from '@/pages/Personajes'
@@ -8,6 +9,8 @@ import Lugares from '@/pages/Lugares'
 import '@/css/App.css'
 
 function App() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return (
     <>
       <Nav />

@@ -100,7 +100,14 @@ const Personajes = () => {
 
             <section className="Card">
                 {loading ? (
-                    <p>Cargando...</p>
+                    Array.from({ length: 8 }).map((_, i) => (
+                      <div key={i} className="skeleton-card">
+                        <div className="skeleton skeleton-img" />
+                        <div className="skeleton skeleton-text" />
+                        <div className="skeleton skeleton-text-short" />
+                        <div className="skeleton skeleton-text-short" />
+                      </div>
+                    ))
                 ) : (
                     personajes.map((p) => <CardPj key={p.id} {...p} />)
                 )}

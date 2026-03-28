@@ -7,7 +7,20 @@ const PersonajeDetail = () => {
   const { data: personaje, loading, error } = useApi(`${apiBase}/character/${id}`);
 
   if (loading) {
-    return <main className="Detail"><p>Cargando personaje...</p></main>;
+    return (
+      <main className="Detail">
+        <div className="skeleton-detail">
+          <div className="skeleton skeleton-detail-img" />
+          <div className="skeleton-detail-info">
+            <div className="skeleton skeleton-text" style={{ width: '60%', height: '2rem' }} />
+            <div className="skeleton skeleton-text-short" />
+            <div className="skeleton skeleton-text-short" />
+            <div className="skeleton skeleton-text" style={{ width: '90%' }} />
+            <div className="skeleton skeleton-text" style={{ width: '70%' }} />
+          </div>
+        </div>
+      </main>
+    );
   }
 
   if (error) {

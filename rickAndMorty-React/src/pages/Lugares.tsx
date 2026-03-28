@@ -36,7 +36,15 @@ const Lugares = () => {
 
       <div className="Card">
         {loading ? (
-          <div>Cargando Ubicaciones...</div>
+          Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="skeleton-card">
+              <div className="skeleton skeleton-text" />
+              <div className="skeleton skeleton-img" style={{ height: 180 }} />
+              <div className="skeleton skeleton-text-short" />
+              <div className="skeleton skeleton-text-short" />
+              <div className="skeleton skeleton-text-short" />
+            </div>
+          ))
         ) : (
           lugares.map((item: Lugar) => (
             <article className="Card-location" key={item.id}>
