@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
 import Personajes from '@/pages/Personajes'
 import PersonajeDetail from '@/pages/PersonajeDetail'
 import Episodios from '@/pages/Episodios.tsx'
@@ -18,6 +19,7 @@ function App() {
         <Route path="/lugares" element={<Lugares />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </>
   )
 }
