@@ -1,18 +1,21 @@
 name: AI Code Review
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["CI Quality Gates"]
+    types:
+      - completed
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   ai-review:
     name: Revisión con IA
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout del código
@@ -24,7 +27,13 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          echo "Revisión con IA iniciada"
+          echo "✅ CI Quality Gates pasaron exitosamente"
+          echo "🔍 Iniciando revisión con IA..."
           echo "Commit: ${{ github.sha }}"
           echo "Autor: ${{ github.actor }}"
           echo "Rama: ${{ github.ref_name }}"
+          echo ""
+          echo "Próximos pasos para implementar:"
+          echo "1. Integrar Gemini API para análisis de código"
+          echo "2. Generar reporte de calidad"
+          echo "3. Comentar en PR si hay issues"
