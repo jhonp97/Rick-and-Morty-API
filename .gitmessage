@@ -1,0 +1,18 @@
+# <type>: <subject> (max 72 chars)
+#
+# Types: feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert
+#
+# Ejemplos:
+#   feat: add search filter to characters page
+#   fix: prevent null page in pagination
+#   refactor: extract useApi custom hook
+#   docs: update README with setup instructions
+#   chore: update dependencies
+#
+# ─────────────────────────────────────────────
+# <body> (opcional, separar con línea en blanco)
+# Explica el QUÉ y PORQUÉ, no el CÓMO
+#
+# ─────────────────────────────────────────────
+# <footer> (opcional)
+# Fixes #123, Closes #456, BREAKING CHANGE: ...

@@ -1,6 +1,17 @@
 {
+  "type": "module",
   "devDependencies": {
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
     "@types/react": "^19.2.9",
-    "@types/react-dom": "^19.2.3"
+    "@types/react-dom": "^19.2.3",
+    "husky": "^9.1.7"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "commitlint:check": "npx commitlint --from HEAD~1 --to HEAD --verbose",
+    "lint:frontend": "npm run lint --prefix rickAndMorty-React",
+    "lint:backend": "echo 'TODO: configure backend lint'",
+    "lint": "npm run lint:frontend && npm run lint:backend"
   }
 }
